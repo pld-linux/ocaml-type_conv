@@ -2,19 +2,20 @@
 # Conditional build:
 %bcond_without	ocaml_opt	# skip building native optimized binaries (bytecode is always built)
 
-%ifnarch %{ix86} %{x8664} arm aarch64 ppc sparc sparcv9
+%ifnarch %{ix86} %{x8664} %{arm} aarch64 ppc sparc sparcv9
 %undefine	with_ocaml_opt
 %endif
 
 Summary:	Support library for preprocessor type conversions
 Summary(pl.UTF-8):	Biblioteka wspierająca dla konwersji typów preprocesora
 Name:		ocaml-type_conv
-Version:	112.01.02
-Release:	3
+Version:	113.00.02
+Release:	1
 License:	Apache v2.0 and BSD
 Group:		Libraries
+#Source0Download: https://github.com/janestreet/type_conv/releases
 Source0:	https://github.com/janestreet/type_conv/archive/%{version}/type_conv-%{version}.tar.gz
-# Source0-md5:	e1d6ff7a9f014dc4fd27190825c767c0
+# Source0-md5:	62b64cf98ad2685a718dd7d1706497f5
 URL:		https://github.com/janestreet/type_conv/
 BuildRequires:	ocaml >= 4.00.0
 BuildRequires:	ocaml-findlib >= 1.3.2
@@ -72,6 +73,8 @@ cat <<EOF >> $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/type_conv/META
 directory="+type_conv"
 EOF
 
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/type_conv/*.{annot,cmt,cmti}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -87,10 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%{_libdir}/ocaml/type_conv/pa_type_conv.annot
 %{_libdir}/ocaml/type_conv/pa_type_conv.cmi
-%{_libdir}/ocaml/type_conv/pa_type_conv.cmt
-%{_libdir}/ocaml/type_conv/pa_type_conv.cmti
 # doc?
 %{_libdir}/ocaml/type_conv/pa_type_conv.mli
 %if %{with ocaml_opt}
