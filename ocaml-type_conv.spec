@@ -10,7 +10,7 @@ Summary:	Support library for preprocessor type conversions
 Summary(pl.UTF-8):	Biblioteka wspierająca dla konwersji typów preprocesora
 Name:		ocaml-type_conv
 Version:	113.00.02
-Release:	1
+Release:	2
 License:	Apache v2.0 and BSD
 Group:		Libraries
 #Source0Download: https://github.com/janestreet/type_conv/releases
@@ -65,14 +65,6 @@ install -d $RPM_BUILD_ROOT%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 ocaml setup.ml -install
 
-# move to dir PLD ocamlfind looks
-install -d $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/type_conv
-%{__mv} $RPM_BUILD_ROOT%{_libdir}/ocaml/type_conv/META \
-	$RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/type_conv
-cat <<EOF >> $RPM_BUILD_ROOT%{_libdir}/ocaml/site-lib/type_conv/META
-directory="+type_conv"
-EOF
-
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/type_conv/*.{annot,cmt,cmti}
 
 %clean
@@ -82,11 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGES.md COPYRIGHT.txt INRIA-DISCLAIMER.txt LICENSE.txt LICENSE-Tywith.txt README.md THIRD-PARTY.txt
 %dir %{_libdir}/ocaml/type_conv
+%{_libdir}/ocaml/type_conv/META
 %{_libdir}/ocaml/type_conv/pa_type_conv.cma
 %if %{with ocaml_opt}
 %attr(755,root,root) %{_libdir}/ocaml/type_conv/pa_type_conv.cmxs
 %endif
-%{_libdir}/ocaml/site-lib/type_conv
 
 %files devel
 %defattr(644,root,root,755)
