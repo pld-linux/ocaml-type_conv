@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	ocaml_opt	# skip building native optimized binaries (bytecode is always built)
+%bcond_without	ocaml_opt	# native optimized binaries (bytecode is always built)
 
 %ifnarch %{ix86} %{x8664} %{arm} aarch64 ppc sparc sparcv9
 %undefine	with_ocaml_opt
@@ -13,11 +13,11 @@ Version:	113.00.02
 Release:	2
 License:	Apache v2.0 and BSD
 Group:		Libraries
-#Source0Download: https://github.com/janestreet/type_conv/releases
-Source0:	https://github.com/janestreet/type_conv/archive/%{version}/type_conv-%{version}.tar.gz
+#Source0Download: https://github.com/janestreet-deprecated/type_conv/releases
+Source0:	https://github.com/janestreet-deprecated/type_conv/archive/%{version}/type_conv-%{version}.tar.gz
 # Source0-md5:	62b64cf98ad2685a718dd7d1706497f5
-URL:		https://github.com/janestreet/type_conv/
-BuildRequires:	ocaml >= 4.00.0
+URL:		https://github.com/janestreet-deprecated/type_conv/
+BuildRequires:	ocaml >= 1:4.00.0
 BuildRequires:	ocaml-findlib >= 1.3.2
 %requires_eq	ocaml-runtime
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -65,7 +65,7 @@ install -d $RPM_BUILD_ROOT%{_libdir}/ocaml
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 ocaml setup.ml -install
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/type_conv/*.{annot,cmt,cmti}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/ocaml/type_conv/*.annot
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -83,6 +83,8 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %{_libdir}/ocaml/type_conv/pa_type_conv.cmi
+%{_libdir}/ocaml/type_conv/pa_type_conv.cmt
+%{_libdir}/ocaml/type_conv/pa_type_conv.cmti
 # doc?
 %{_libdir}/ocaml/type_conv/pa_type_conv.mli
 %if %{with ocaml_opt}
