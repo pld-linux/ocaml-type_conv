@@ -10,7 +10,7 @@ Summary:	Support library for preprocessor type conversions
 Summary(pl.UTF-8):	Biblioteka wspierająca dla konwersji typów preprocesora
 Name:		ocaml-type_conv
 Version:	113.00.02
-Release:	2
+Release:	3
 License:	Apache v2.0 and BSD
 Group:		Libraries
 #Source0Download: https://github.com/janestreet-deprecated/type_conv/releases
